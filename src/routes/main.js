@@ -1,5 +1,6 @@
 const express = require('express')
 const zookeeper = require('node-zookeeper-client')
+const ShortURL = require('../models/url')
 const router = express.Router()
 
 var zkClient = zookeeper.createClient('zookeeper-server')
@@ -89,7 +90,7 @@ zkClient.once('connected', async () => {
 
 zkClient.connect()
 
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
     if (range.curr < range.end - 1 && range.curr != 0) {
         res.send(hashGenerator(range.curr))
         console.log('Token: %d', range.curr)
@@ -100,7 +101,43 @@ router.get('/', (req, res) => {
         console.log('Token: %d', range.curr)
         range.curr++
     }
-    // console.log('Token: %d', range.curr)
+
+    ShortURL.findOne({ OriginalUrl: req.body.OriginalUrl }, (err, url) => {
+        if (err) {
+            console.log(err)
+        }
+        else if (url) {
+            console.log(url)
+            res.json(url.Hash)
+        } else {
+            ShortURL.create({
+                Hash: hashGenerator(range.curr),
+                OriginalUrl: req.body.OriginalUrl,
+                CreatedAt: new Date(),
+                ExpiresAt: new Date() + (1000 * 60 * 60 * 24 * 7)
+            }, (err, url) => {
+                if (err) {
+                    console.log(err)
+                }
+                console.log(url)
+                res.json(url.Hash)
+            })
+        }
+    })
+})
+
+router.get('/:hash', (req, res) => {
+    ShortURL.findOne({ Hash: req.params.hash }, (err, url) => {
+        if (err) {
+            console.log(err)
+        }
+        else if (url) {
+            console.log(url)
+            res.redirect(url.OriginalUrl)
+        } else {
+            res.send('URL not found')
+        }
+    })
 })
 
 router.get('/del', (req, res) => {
@@ -116,4 +153,4 @@ router.get('/del', (req, res) => {
 
 module.exports = router
 
-// docker compose up--build
+// docker compose up --build
