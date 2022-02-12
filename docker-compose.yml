@@ -1,0 +1,15 @@
+version: '3'
+services:
+  node-app:
+    build: .
+    ports:
+      - '8081:8081'
+    restart: always
+  redis-server:
+    image: redis
+    ports:
+      - '6379:6379'
+    restart: always
+  zookeeper-server:
+    image: zookeeper
+    restart: always
