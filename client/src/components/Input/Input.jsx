@@ -35,7 +35,9 @@ function Input() {
 				<button onClick={handleSubmit}>Shorten</button>
 			</div>
 			<div className="res">
-				<a href={link}>shorturl.com/{result}</a>
+				<a href={link} target="_blank">
+					shorturl.com/{result}
+				</a>
 			</div>
 		</div>
 	)
