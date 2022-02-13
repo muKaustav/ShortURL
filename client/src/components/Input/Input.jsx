@@ -11,8 +11,9 @@ function Input() {
 		axios
 			.post('/', { OriginalUrl: input })
 			.then((res) => {
-				setResult(res.data.Hash)
-				setLink('https://localhost:8081/' + result)
+				console.log(res.data)
+				setResult(res.data)
+				setLink('http://localhost:8081/' + res.data)
 			})
 			.catch((err) => {
 				console.log(err)

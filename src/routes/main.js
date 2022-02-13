@@ -92,13 +92,11 @@ zkClient.connect()
 
 router.post('/', (req, res) => {
     if (range.curr < range.end - 1 && range.curr != 0) {
-        res.send(hashGenerator(range.curr))
-        console.log('Token: %d', range.curr)
+        // console.log('Token: %d', range.curr)
         range.curr++
     } else {
         getTokenRange()
-        res.send(hashGenerator(range.curr))
-        console.log('Token: %d', range.curr)
+        // console.log('Token: %d', range.curr)
         range.curr++
     }
 
@@ -107,11 +105,11 @@ router.post('/', (req, res) => {
             console.log(err)
         }
         else if (url) {
-            console.log(url)
+            // console.log("Exisiting data: ", url)
             res.json(url.Hash)
         } else {
             ShortURL.create({
-                Hash: hashGenerator(range.curr),
+                Hash: hashGenerator(range.curr - 1),
                 OriginalUrl: req.body.OriginalUrl,
                 CreatedAt: new Date(),
                 ExpiresAt: new Date() + (1000 * 60 * 60 * 24 * 7)
@@ -119,7 +117,7 @@ router.post('/', (req, res) => {
                 if (err) {
                     console.log(err)
                 }
-                console.log(url)
+                // console.log(url)
                 res.json(url.Hash)
             })
         }
@@ -131,9 +129,10 @@ router.get('/:hash', (req, res) => {
         if (err) {
             console.log(err)
         }
-        else if (url) {
-            console.log(url)
+        if (url) {
+            // console.log(url)
             res.redirect(url.OriginalUrl)
+
         } else {
             res.send('URL not found')
         }
