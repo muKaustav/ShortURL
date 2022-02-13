@@ -1,7 +1,7 @@
 const cors = require('cors')
 const express = require('express')
 const mainRoute = require('./routes/main')
-require('./database').connect()
+require('./mongodb').connect()
 
 const app = express()
 

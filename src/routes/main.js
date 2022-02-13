@@ -1,7 +1,18 @@
+require('dotenv').config()
 const express = require('express')
+const redis = require('redis')
 const zookeeper = require('node-zookeeper-client')
 const ShortURL = require('../models/url')
 const router = express.Router()
+
+var redisClient = redis.createClient({
+    host: process.env.REACT_APP_REDIS_HOST,
+    port: process.env.REACT_APP_REDIS_PORT,
+})
+
+redisClient.on('connect', async () => {
+    console.log('Connected to the Redis server.')
+})
 
 var zkClient = zookeeper.createClient('zookeeper-server')
 
@@ -90,7 +101,7 @@ zkClient.once('connected', async () => {
 
 zkClient.connect()
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     if (range.curr < range.end - 1 && range.curr != 0) {
         // console.log('Token: %d', range.curr)
         range.curr++
@@ -100,32 +111,60 @@ router.post('/', (req, res) => {
         range.curr++
     }
 
-    ShortURL.findOne({ OriginalUrl: req.body.OriginalUrl }, (err, url) => {
+    redisClient.get(req.body.OriginalUrl, async (err, response) => {
         if (err) {
             console.log(err)
-        }
-        else if (url) {
-            // console.log("Exisiting data: ", url)
-            res.json(url.Hash)
+        } else if (response) {
+            // console.log('Redis response: %s', response)
+            res.json(response)
         } else {
-            ShortURL.create({
-                Hash: hashGenerator(range.curr - 1),
-                OriginalUrl: req.body.OriginalUrl,
-                CreatedAt: new Date(),
-                ExpiresAt: new Date() + (1000 * 60 * 60 * 24 * 7)
-            }, (err, url) => {
+            ShortURL.findOne({ OriginalUrl: req.body.OriginalUrl }, (err, url) => {
                 if (err) {
                     console.log(err)
                 }
-                // console.log(url)
-                res.json(url.Hash)
+                else if (url) {
+                    // console.log("Exisiting data: ", url)
+                    res.json(url.Hash)
+                    redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
+                } else {
+                    if (req.body.Nickname) {
+                        ShortURL.create({
+                            Hash: hashGenerator(range.curr - 1),
+                            Nickname: req.body.Nickname,
+                            OriginalUrl: req.body.OriginalUrl,
+                            CreatedAt: new Date(),
+                            ExpiresAt: new Date(new Date().getTime() + (1000 * 24 * 60 * 60 * 1000))
+                        }, (err, url) => {
+                            if (err) {
+                                console.log(err)
+                            }
+                            // console.log(url)
+                            res.json(url.Nickname)
+                            redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
+                        })
+                    } else {
+                        ShortURL.create({
+                            Hash: hashGenerator(range.curr - 1),
+                            OriginalUrl: req.body.OriginalUrl,
+                            CreatedAt: new Date(),
+                            ExpiresAt: new Date(new Date().getTime() + (1000 * 24 * 60 * 60 * 1000))
+                        }, (err, url) => {
+                            if (err) {
+                                console.log(err)
+                            }
+                            // console.log(url)
+                            res.json(url.Hash)
+                            redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
+                        })
+                    }
+                }
             })
         }
     })
 })
 
-router.get('/:hash', (req, res) => {
-    ShortURL.findOne({ Hash: req.params.hash }, (err, url) => {
+router.get('/:identifier', (req, res) => {
+    ShortURL.findOne({ Hash: req.params.identifier }, (err, url) => {
         if (err) {
             console.log(err)
         }

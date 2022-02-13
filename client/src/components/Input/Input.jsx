@@ -3,15 +3,15 @@ import axios from 'axios'
 
 function Input() {
 	let [input, setInput] = useState('')
+	let [nickname, setNickname] = useState(null)
 	let [result, setResult] = useState('yourURL')
 	let [link, setLink] = useState('')
 
 	let handleSubmit = (e) => {
 		e.preventDefault()
 		axios
-			.post('/', { OriginalUrl: input })
+			.post('/', { OriginalUrl: input, Nickname: nickname })
 			.then((res) => {
-				console.log(res.data)
 				setResult(res.data)
 				setLink('http://localhost:8081/' + res.data)
 			})
@@ -31,11 +31,20 @@ function Input() {
 					onChange={(e) => {
 						setInput(e.target.value)
 					}}
+					required
+				/>
+				<input
+					type="text"
+					placeholder="Enter a nickname"
+					value={nickname}
+					onChange={(e) => {
+						setNickname(e.target.value)
+					}}
 				/>
 				<button onClick={handleSubmit}>Shorten</button>
 			</div>
 			<div className="res">
-				<a href={link} target="_blank">
+				<a href={link} target="_blank" rel="noreferrer">
 					shorturl.com/{result}
 				</a>
 			</div>

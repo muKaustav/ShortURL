@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
 require('dotenv').config()
+const mongoose = require('mongoose')
 
 const connect = async () => {
-    return mongoose.connect('mongodb+srv://kauc:kauc@shorturldb.subzo.mongodb.net/urlshortener', {
+    return mongoose.connect(process.env.REACT_APP_MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }).then(() => {
