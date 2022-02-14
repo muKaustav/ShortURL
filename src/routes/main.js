@@ -5,6 +5,40 @@ const zookeeper = require('node-zookeeper-client')
 const ShortURL = require('../models/url')
 const router = express.Router()
 
+class Queue {
+    constructor() {
+        this.items = []
+    }
+
+    enqueue = async (element) => {
+        if (this.size() < 10) {
+            this.items.push(element)
+        } else {
+            while (!this.isEmpty()) {
+                await ShortURL.findOneAndUpdate({ Hash: this.dequeue() }, { $inc: { Visits: 1 } }).catch(err => console.log(err))
+            }
+        }
+    }
+
+    dequeue() {
+        return this.items.shift()
+    }
+
+    isEmpty() {
+        return this.items.length === 0
+    }
+
+    size() {
+        return this.items.length
+    }
+
+    print() {
+        console.log(this.items.toString())
+    }
+}
+
+let jobQueue = new Queue()
+
 var redisClient = redis.createClient({
     host: process.env.REACT_APP_REDIS_HOST,
     port: process.env.REACT_APP_REDIS_PORT,
@@ -132,6 +166,7 @@ router.post('/', async (req, res) => {
                             Hash: hashGenerator(range.curr - 1),
                             Nickname: req.body.Nickname,
                             OriginalUrl: req.body.OriginalUrl,
+                            Visits: 0,
                             CreatedAt: new Date(),
                             ExpiresAt: new Date(new Date().getTime() + (1000 * 24 * 60 * 60 * 1000))
                         }, (err, url) => {
@@ -146,6 +181,7 @@ router.post('/', async (req, res) => {
                         ShortURL.create({
                             Hash: hashGenerator(range.curr - 1),
                             OriginalUrl: req.body.OriginalUrl,
+                            Visits: 0,
                             CreatedAt: new Date(),
                             ExpiresAt: new Date(new Date().getTime() + (1000 * 24 * 60 * 60 * 1000))
                         }, (err, url) => {
@@ -171,6 +207,7 @@ router.get('/:identifier', (req, res) => {
         if (url) {
             // console.log(url)
             res.redirect(url.OriginalUrl)
+            jobQueue.enqueue(url.Hash)
 
         } else {
             res.send('URL not found')

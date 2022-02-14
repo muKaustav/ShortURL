@@ -15,6 +15,10 @@ const URL = mongoose.Schema({
         type: String,
         required: true
     },
+    Visits: {
+        type: Number,
+        default: 0
+    },
     CreatedAt: Date,
     ExpiresAt: Date
 })
