@@ -15,7 +15,8 @@ class Queue {
             this.items.push(element)
         } else {
             while (!this.isEmpty()) {
-                await ShortURL.findOneAndUpdate({ Hash: this.dequeue() }, { $inc: { Visits: 1 } }).catch(err => console.log(err))
+                await ShortURL.findOneAndUpdate({ Hash: this.dequeue() }, { $inc: { Visits: 1 } })
+                    .catch(err => console.log(err))
             }
         }
     }
@@ -137,29 +138,36 @@ zkClient.connect()
 
 router.post('/', async (req, res) => {
     if (range.curr < range.end - 1 && range.curr != 0) {
-        // console.log('Token: %d', range.curr)
         range.curr++
     } else {
         getTokenRange()
-        // console.log('Token: %d', range.curr)
         range.curr++
     }
 
-    redisClient.get(req.body.OriginalUrl, async (err, response) => {
+    let cacheSelect = req.body.Nickname != null ? req.body.Nickname : req.body.OriginalUrl
+
+    redisClient.get(cacheSelect, async (err, response) => {
         if (err) {
             console.log(err)
         } else if (response) {
-            // console.log('Redis response: %s', response)
             res.json(response)
         } else {
-            ShortURL.findOne({ OriginalUrl: req.body.OriginalUrl }, (err, url) => {
+            ShortURL.findOne({
+                $and: [
+                    { OriginalUrl: req.body.OriginalUrl },
+                    { Nickname: req.body.Nickname }]
+            }, (err, url) => {
                 if (err) {
                     console.log(err)
                 }
                 else if (url) {
-                    // console.log("Exisiting data: ", url)
-                    res.json(url.Hash)
-                    redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
+
+                    res.json({
+                        OriginalUrl: url.OriginalUrl,
+                        Nickname: url.Nickname
+                    })
+
+                    redisClient.setex(url.OriginalUrl, 600, url.Nickname)
                 } else {
                     if (req.body.Nickname) {
                         ShortURL.create({
@@ -173,9 +181,8 @@ router.post('/', async (req, res) => {
                             if (err) {
                                 console.log(err)
                             }
-                            // console.log(url)
                             res.json(url.Nickname)
-                            redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
+                            redisClient.setex(req.body.OriginalUrl, 600, url.Nickname)
                         })
                     } else {
                         ShortURL.create({
@@ -188,7 +195,6 @@ router.post('/', async (req, res) => {
                             if (err) {
                                 console.log(err)
                             }
-                            // console.log(url)
                             res.json(url.Hash)
                             redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
                         })
@@ -200,19 +206,19 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/:identifier', (req, res) => {
-    ShortURL.findOne({ Hash: req.params.identifier }, (err, url) => {
-        if (err) {
-            console.log(err)
-        }
-        if (url) {
-            // console.log(url)
-            res.redirect(url.OriginalUrl)
-            jobQueue.enqueue(url.Hash)
+    ShortURL.findOne({ $or: [{ Hash: req.params.identifier }, { Nickname: req.params.identifier }] }
+        , (err, url) => {
+            if (err) {
+                console.log(err)
+            }
+            if (url) {
+                res.redirect(url.OriginalUrl)
+                jobQueue.enqueue(url.Hash)
 
-        } else {
-            res.send('URL not found')
-        }
-    })
+            } else {
+                res.send('URL not found')
+            }
+        })
 })
 
 router.get('/token/del', (req, res) => {
