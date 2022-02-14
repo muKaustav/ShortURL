@@ -1,9 +1,24 @@
 version: '3'
 services:
-  node-app:
-    build: .
+  node-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - .:/app
     ports:
       - '8081:8081'
+    restart: always
+  client-server:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - '3000:3000'
     restart: always
   redis-server:
     image: redis

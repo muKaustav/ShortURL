@@ -6,11 +6,6 @@ const URL = mongoose.Schema({
         required: true,
         unique: true
     },
-    Nickname: {
-        type: String,
-        unique: true,
-        sparse: true
-    },
     OriginalUrl: {
         type: String,
         required: true

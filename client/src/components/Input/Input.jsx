@@ -3,14 +3,13 @@ import axios from 'axios'
 
 function Input() {
 	let [input, setInput] = useState('')
-	let [nickname, setNickname] = useState(null)
 	let [result, setResult] = useState('yourURL')
 	let [link, setLink] = useState('')
 
 	let handleSubmit = (e) => {
 		e.preventDefault()
 		axios
-			.post('/', { OriginalUrl: input, Nickname: nickname })
+			.post('/', { OriginalUrl: input })
 			.then((res) => {
 				setResult(res.data)
 				setLink('http://localhost:8081/' + res.data)
@@ -33,14 +32,7 @@ function Input() {
 					}}
 					required
 				/>
-				<input
-					type="text"
-					placeholder="Enter a nickname"
-					value={nickname}
-					onChange={(e) => {
-						setNickname(e.target.value)
-					}}
-				/>
+
 				<button onClick={handleSubmit}>Shorten</button>
 			</div>
 			<div className="res">

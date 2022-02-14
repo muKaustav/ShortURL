@@ -144,61 +144,34 @@ router.post('/', async (req, res) => {
         range.curr++
     }
 
-    let cacheSelect = req.body.Nickname != null ? req.body.Nickname : req.body.OriginalUrl
-
-    redisClient.get(cacheSelect, async (err, response) => {
+    redisClient.get(req.body.OriginalUrl, async (err, response) => {
         if (err) {
             console.log(err)
         } else if (response) {
             res.json(response)
         } else {
-            ShortURL.findOne({
-                $and: [
-                    { OriginalUrl: req.body.OriginalUrl },
-                    { Nickname: req.body.Nickname }]
-            }, (err, url) => {
+            ShortURL.findOne({ OriginalUrl: req.body.OriginalUrl }, (err, url) => {
                 if (err) {
                     console.log(err)
                 }
                 else if (url) {
-
-                    res.json({
-                        OriginalUrl: url.OriginalUrl,
-                        Nickname: url.Nickname
+                    res.json({ OriginalUrl: url.OriginalUrl })
+                    redisClient.setex(url.OriginalUrl, 600, url.Hash)
+                } else {
+                    ShortURL.create({
+                        Hash: hashGenerator(range.curr - 1),
+                        OriginalUrl: req.body.OriginalUrl,
+                        Visits: 0,
+                        CreatedAt: new Date(),
+                        ExpiresAt: new Date(new Date().getTime() + (1000 * 24 * 60 * 60 * 1000))
+                    }, (err, url) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        res.json(url.Hash)
+                        redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
                     })
 
-                    redisClient.setex(url.OriginalUrl, 600, url.Nickname)
-                } else {
-                    if (req.body.Nickname) {
-                        ShortURL.create({
-                            Hash: hashGenerator(range.curr - 1),
-                            Nickname: req.body.Nickname,
-                            OriginalUrl: req.body.OriginalUrl,
-                            Visits: 0,
-                            CreatedAt: new Date(),
-                            ExpiresAt: new Date(new Date().getTime() + (1000 * 24 * 60 * 60 * 1000))
-                        }, (err, url) => {
-                            if (err) {
-                                console.log(err)
-                            }
-                            res.json(url.Nickname)
-                            redisClient.setex(req.body.OriginalUrl, 600, url.Nickname)
-                        })
-                    } else {
-                        ShortURL.create({
-                            Hash: hashGenerator(range.curr - 1),
-                            OriginalUrl: req.body.OriginalUrl,
-                            Visits: 0,
-                            CreatedAt: new Date(),
-                            ExpiresAt: new Date(new Date().getTime() + (1000 * 24 * 60 * 60 * 1000))
-                        }, (err, url) => {
-                            if (err) {
-                                console.log(err)
-                            }
-                            res.json(url.Hash)
-                            redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
-                        })
-                    }
                 }
             })
         }
@@ -206,19 +179,18 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/:identifier', (req, res) => {
-    ShortURL.findOne({ $or: [{ Hash: req.params.identifier }, { Nickname: req.params.identifier }] },
-        (err, url) => {
-            if (err) {
-                console.log(err)
-            }
-            if (url) {
-                res.redirect(url.OriginalUrl)
-                jobQueue.enqueue(url.Hash)
+    ShortURL.findOne({ Hash: req.params.identifier }, (err, url) => {
+        if (err) {
+            console.log(err)
+        }
+        if (url) {
+            res.redirect(url.OriginalUrl)
+            jobQueue.enqueue(url.Hash)
 
-            } else {
-                res.send('URL not found')
-            }
-        })
+        } else {
+            res.send('URL not found')
+        }
+    })
 })
 
 router.get('/token/del', (req, res) => {
