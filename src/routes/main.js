@@ -206,8 +206,8 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/:identifier', (req, res) => {
-    ShortURL.findOne({ $or: [{ Hash: req.params.identifier }, { Nickname: req.params.identifier }] }
-        , (err, url) => {
+    ShortURL.findOne({ $or: [{ Hash: req.params.identifier }, { Nickname: req.params.identifier }] },
+        (err, url) => {
             if (err) {
                 console.log(err)
             }
