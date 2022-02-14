@@ -215,7 +215,7 @@ router.get('/:identifier', (req, res) => {
     })
 })
 
-router.get('/del', (req, res) => {
+router.get('/token/del', (req, res) => {
     zkClient.remove('/token', (error, stat) => {
         if (error) {
             console.log(error.stack)
