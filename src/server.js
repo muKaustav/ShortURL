@@ -19,3 +19,5 @@ PORT = process.env.PORT || 8081
 app.listen(PORT, () => {
     console.log('Node server listening on port %s.', PORT)
 })
+
+// docker compose up --build --scale node-server=3

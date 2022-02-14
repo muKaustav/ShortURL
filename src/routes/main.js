@@ -205,5 +205,3 @@ router.get('/token/del', (req, res) => {
 })
 
 module.exports = router
-
-// docker compose up --build
