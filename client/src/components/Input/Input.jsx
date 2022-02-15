@@ -12,7 +12,7 @@ function Input() {
 			.post('/', { OriginalUrl: input })
 			.then((res) => {
 				setResult(res.data)
-				setLink('/api/' + res.data)
+				setLink('http://localhost:4000/api/' + res.data)
 			})
 			.catch((err) => {
 				console.log(err)

@@ -185,7 +185,6 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/api/:identifier', (req, res) => {
-    // console.log('hi')
     ShortURL.findOne({ Hash: req.params.identifier }, (err, url) => {
         if (err) {
             console.log(err)
