@@ -10,14 +10,14 @@ app.use(express.json())
 
 app.use('/', mainRoute)
 
-app.get("*", (req, res) => {
-    res.redirect('/')
-})
+// app.get("*", (req, res) => {
+//     res.redirect('/')
+// })
 
 PORT = process.env.PORT || 8081
 
 app.listen(PORT, () => {
-    console.log('Node server listening on port %s.', PORT)
+    console.log(`App started on port ${PORT}`)
 })
 
 // docker compose up --build --scale node-server=3

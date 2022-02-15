@@ -136,6 +136,11 @@ zkClient.once('connected', async () => {
 
 zkClient.connect()
 
+router.get('/api', (req, res) => {
+    console.log('Request received.')
+    res.send('Hello World!')
+})
+
 router.post('/', async (req, res) => {
     if (range.curr < range.end - 1 && range.curr != 0) {
         range.curr++
@@ -143,6 +148,8 @@ router.post('/', async (req, res) => {
         getTokenRange()
         range.curr++
     }
+
+    console.log(range.curr)
 
     redisClient.get(req.body.OriginalUrl, async (err, response) => {
         if (err) {
@@ -171,22 +178,23 @@ router.post('/', async (req, res) => {
                         res.json(url.Hash)
                         redisClient.setex(req.body.OriginalUrl, 600, url.Hash)
                     })
-
                 }
             })
         }
     })
 })
 
-router.get('/:identifier', (req, res) => {
+router.get('/api/:identifier', (req, res) => {
+    // console.log('hi')
     ShortURL.findOne({ Hash: req.params.identifier }, (err, url) => {
         if (err) {
             console.log(err)
         }
         if (url) {
+            console.log(url)
             res.redirect(url.OriginalUrl)
+            // res.json(url)
             jobQueue.enqueue(url.Hash)
-
         } else {
             res.send('URL not found')
         }
