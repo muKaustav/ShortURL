@@ -1,13 +1,13 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Input from "./components/Input/Input"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ <Input /> } />
-        <Route path='*' component={ () => 'ERROR 404 NOT FOUND' } />
+        <Route path="/" exact element={ <Input /> } />
+        <Route path="*" element={ <Navigate replace to="/" /> } />
       </Routes>
     </BrowserRouter>
   )
