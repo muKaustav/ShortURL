@@ -1,0 +1,50 @@
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+	background: #ffd89b;
+	background: -webkit-linear-gradient(to right, #19547b, #ffd89b);
+	background: linear-gradient(to right, #184b6d, #f0ba63d2);
+    margin: 0 auto;
+    margin-top: auto;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8em;
+
+    .socials {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1.2em;
+        margin-bottom: 1em;
+        margin-right: 5em;
+
+        .github {
+            width: 3em;
+            height: 3em;
+            margin-right: 5em;
+        }
+
+        .linkedin {
+            width: 3em;
+            height: 3em;
+        }
+    }
+
+    .item {
+        color: rgb(226, 226, 226);
+        text-decoration: none;
+        font-size: 0.8em;
+        font-family: 'Poppins', sans-serif;
+        // margin-left: 7em;
+    }
+
+    .resume {
+        color: rgb(226, 226, 226);
+        text-decoration: none;
+        font-size: 0.8em;
+        font-family: 'Poppins', sans-serif;
+        margin-left: 5em;
+        margin-right: 5em;
+    }
+}

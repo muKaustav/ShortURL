@@ -1,0 +1,19 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+	background: #ffd89b;
+	background: -webkit-linear-gradient(to right, #19547b, #ffd89b);
+	background: linear-gradient(to right, #184b6d, #eec88b);
+	margin-bottom: 5em;
+	padding: 0.1em;
+
+    .headinganchor {
+        color: rgb(226, 226, 226);
+        text-decoration: none;
+        font-size: 1.5em;
+        font-family: 'Poppins', sans-serif;
+        margin-left: 1em;
+    }
+}
