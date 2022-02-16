@@ -2,9 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-	background: #ffd89b;
-	background: -webkit-linear-gradient(to right, #19547b, #ffd89b);
-	background: linear-gradient(to right, #184b6d, #f0ba63d2);
+    background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     margin: 0 auto;
     margin-top: auto;
     width: 100%;
@@ -43,6 +43,22 @@
         color: rgb(226, 226, 226);
         text-decoration: none;
         font-size: 0.8em;
+        font-family: 'Poppins', sans-serif;
+        margin-left: 5em;
+        margin-right: 5em;
+    }
+
+    .footer-link:link {
+        color: rgb(226, 226, 226);
+        text-decoration: none;
+        font-family: 'Poppins', sans-serif;
+        margin-left: 5em;
+        margin-right: 5em;
+    }
+
+    .footer-link:visited {
+        color: rgb(226, 226, 226);
+        text-decoration: none;
         font-family: 'Poppins', sans-serif;
         margin-left: 5em;
         margin-right: 5em;

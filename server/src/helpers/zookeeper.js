@@ -97,6 +97,8 @@ let connectZK = async () => {
     zkClient.once('connected', async () => {
         console.log('Connected to the ZK server.')
         checkIfTokenExists()
+        getTokenRange()
+        console.log("hello", range.start)
     })
 
     zkClient.connect()

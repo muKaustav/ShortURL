@@ -6,7 +6,7 @@ let urlPost = async (req, res) => {
     if (range.curr < range.end - 1 && range.curr != 0) {
         range.curr++
     } else {
-        getTokenRange()
+        await getTokenRange()
         range.curr++
     }
 

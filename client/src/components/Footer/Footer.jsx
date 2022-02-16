@@ -7,7 +7,14 @@ function Footer() {
 	return (
 		<div className="footer">
 			<div className="resume">
-				<h1>Resume</h1>
+				<a
+					href="https://drive.google.com/file/d/1Q0jfv7dDHC3jE0CmtLupWgtNQ3-z2Atx/view?usp=sharing"
+					target="_blank"
+					rel="noreferrer"
+					className="footer-link"
+				>
+					<h1>Resume</h1>
+				</a>
 			</div>
 			<div className="item">
 				<h1>Made with ❤️ by kauC</h1>
