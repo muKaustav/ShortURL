@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 
-const connect = async () => {
+const connectDB = async () => {
     return mongoose.connect(process.env.REACT_APP_MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -14,4 +14,4 @@ const connect = async () => {
     })
 }
 
-module.exports = { connect }
+module.exports = { connectDB }

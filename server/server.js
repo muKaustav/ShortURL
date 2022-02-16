@@ -1,7 +1,9 @@
 const cors = require('cors')
 const express = require('express')
-const mainRoute = require('./routes/main')
-require('./mongodb').connect()
+const mainRoute = require('./src/routes/main')
+require('./src/helpers/mongodb').connectDB()
+require('./src/helpers/redis').connectRedis()
+require('./src/helpers/zookeeper').connectZK()
 
 const app = express()
 

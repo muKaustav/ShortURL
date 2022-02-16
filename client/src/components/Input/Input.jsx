@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import apis from '../../api/api'
 
 function Input() {
 	let [input, setInput] = useState('')
@@ -8,11 +8,12 @@ function Input() {
 
 	let handleSubmit = (e) => {
 		e.preventDefault()
-		axios
-			.post('/', { OriginalUrl: input })
+		apis
+			.postURL(input)
 			.then((res) => {
-				setResult(res.data)
-				setLink('http://localhost:4000/api/' + res.data)
+				let data = res.data
+				setResult(data)
+				setLink(`http://localhost:4000/url/${data}`)
 			})
 			.catch((err) => {
 				console.log(err)
