@@ -46,12 +46,11 @@ Example: docker compose up --build --scale node-server=3
 
 <br/>
 
-## 📷 | Screenshots
+## 📺 | Demonstration
 
 <p align = center>
-    <img alt="Project Logo" src="https://raw.githubusercontent.com/muKaustav/Taskwrite-Appwrite-Hacktoberfest-2021/main/assets/googlelogin.png" target="_blank" />
-    <img alt="Project Logo" src="https://raw.githubusercontent.com/muKaustav/Taskwrite-Appwrite-Hacktoberfest-2021/main/assets/home.png" target="_blank" />
-    <img alt="Project Logo" src="https://raw.githubusercontent.com/muKaustav/Taskwrite-Appwrite-Hacktoberfest-2021/main/assets/editDeleteTask.png" target="_blank" />
+    ![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+
 </p>
 
 <br/>

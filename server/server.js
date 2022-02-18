@@ -12,9 +12,9 @@ app.use(express.json())
 
 app.use('/', mainRoute)
 
-// app.get("*", (req, res) => {
-//     res.redirect('/')
-// })
+app.get("*", (req, res) => {
+    res.send("<h1>404 Not Found</h1>")
+})
 
 PORT = process.env.PORT || 8081
 
