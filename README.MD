@@ -48,9 +48,9 @@ kubectl apply -f k8s/
 ```yml
 GET:
     /url/:identifier : Get the shortened URL from DB
-    /del : Delete the shortened URL    
+    /del : Delete the Zookeeper token  
 POST:
-    /url : Shorten the URL and store in DB
+    /url [body : {"OriginalUrl" : "url"}] : Shorten the URL and store in DB
 
 
 Access the API using the following URLs:
