@@ -47,11 +47,11 @@ Example: docker compose up --build --scale node-server=3
 <br/>
 
 ## 📘 | System Design Schematic
-
 <p align = center>
-    <img alt="Project Logo" src="https://raw.githubusercontent.com/muKaustav/Taskwrite-Appwrite-Hacktoberfest-2021/main/assets/googlelogin.png" target="_blank" />
+    <img alt="getURL" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/getURL.png" target="_blank" />
+    <img alt="redirect" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/redirect.png" target="_blank" />
 </p>
-
+- getURL schematic
 <br/>
 
 ## 📷 | Screenshots
