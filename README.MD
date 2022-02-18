@@ -21,7 +21,7 @@
 
 ## 🚀 | Usage
 
-- Install Docker Desktop.
+- Install Docker Desktop and enable Kubernetes for a quick setup.
 - Clone this repository:<br>
 
 ```sh
