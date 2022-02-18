@@ -43,6 +43,21 @@ kubectl apply -f k8s/
 
 <br/>
 
+## 🌐 | API Endpoints
+
+```yml
+GET:
+    /url/:identifier : Get the shortened URL from DB
+    /del : Delete the shortened URL    
+POST:
+    /url : Shorten the URL and store in DB
+
+
+Access the API using the following URLs:
+    Client: http://localhost:3000/
+    Load Balanced Server: http://localhost:4000/
+```
+
 ## 📺 | Demonstration
 
 <p align = center>
