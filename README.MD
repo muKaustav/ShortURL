@@ -7,15 +7,7 @@
 ## 📚 | Introduction
 
 - This is a demo application of a URL Shortener following the guidelines of efficient System Design.
-- This is a project demonstrating the entire development process and is meant to be run in a local enviroment. 
-- There are namely 5 container images, all of which are hosted on Docker Hub: 
-```yaml
-- Server : 
-- Client :
-- Redis :
-- Apache Zookeeper :
-- Nginx :
-```
+- This is a project demonstrating the entire development process and is meant to be run in a local environment. 
 
 <br/>
 
