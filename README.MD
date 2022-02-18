@@ -2,7 +2,7 @@
 <p align = center>
     <img alt="Project Logo" src="https://raw.githubusercontent.com/muKaustav/Taskwrite-Appwrite-Hacktoberfest-2021/main/assets/thumbnail_taskwritepsd.jpg" target="_blank" />
 </p>
-<h2 align='center'>A distributed and highly available URL Shortener built on MERN stack, using Apache Zookeeper, cached using Redis, and containerized by Docker.</h2><br/>
+<h2 align='center'>A distributed and highly available URL Shortener.</h2><br/>
 
 ## 📚 | Introduction
 
@@ -46,14 +46,6 @@ Example: docker compose up --build --scale node-server=3
 
 <br/>
 
-## 📘 | System Design Schematic
-<p align = center>
-    <img alt="getURL" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/getURL.png" target="_blank" />
-    <img alt="redirect" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/redirect.png" target="_blank" />
-</p>
-- getURL schematic
-<br/>
-
 ## 📷 | Screenshots
 
 <p align = center>
@@ -64,10 +56,37 @@ Example: docker compose up --build --scale node-server=3
 
 <br/>
 
+## 📘 | System Design Schematic
+
+<p align = center>
+    <img alt="getURL" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/getURL.png" target="_blank" />
+    <img alt="redirect" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/redirect.png" target="_blank" />
+</p>
+
+<br/>
+
+## ⌛ | Areas to Improve
+
+- A seperate database for storing user info can be implemented for analytics that adds to the business value of the application. (I didn't implement this as I am not sure if it is necessary for the context of this project)
+- The application can be made more robust by adding more checks to the validation of the URLs.
+
+<br/>
+
+## 💻 | References
+
+- [TinyURL System Design](https://www.codekarle.com/system-design/TinyUrl-system-design.html)
+- [System Design : Scalable URL shortener service like TinyURL](https://medium.com/@sandeep4.verma/system-design-scalable-url-shortener-service-like-tinyurl-106f30f23a82)
+- [Redis Documentation](https://redis.io/documentation)
+- [Apache Zookeeper Documentation](https://zookeeper.apache.org/doc/r3.7.0/index.html)
+- [Nginx HTTP Load Balancing Documentation](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/)
+- [Docker Documentation](https://docs.docker.com/language/nodejs/)
+
+<br/>
+
 ## 🍻 | Contributing
 
 Contributions, issues and feature requests are welcome.<br>
-Feel free to check [issues page](https://github.com/muKaustav/Taskwrite-Appwrite-Hacktoberfest-2021/issues) if you want to contribute.
+Feel free to check [issues page](https://github.com/muKaustav/ShortURL/issues) if you want to contribute.
 
 <br/>
 
