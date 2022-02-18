@@ -34,7 +34,7 @@ REACT_APP_MONGODB_URI="<enter your MongoDB URI>"
 REACT_APP_REDIS_PORT=1111 (defaults to 6379)
 REACT_APP_REDIS_HOST='redis-server' (name it as you like, but change the same in the docker-compose.yml file)
 ```
-- Open the project folder and start the container with docker comopose:<br>
+- Open the project folder and start the container with docker compose:<br>
 
 ```yml
 docker compose up --build
@@ -85,6 +85,7 @@ kubectl apply -f k8s/
 - [Apache Zookeeper Documentation](https://zookeeper.apache.org/doc/r3.7.0/index.html)
 - [Nginx HTTP Load Balancing Documentation](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/)
 - [Docker Documentation](https://docs.docker.com/language/nodejs/)
+- [Kompose Documentation](https://kompose.io/user-guide/)
 
 <br/>
 
