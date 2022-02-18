@@ -1,6 +1,6 @@
 <h1 align="center">ShortURL: A URL Shortening service 🔗</h1>
 <p align = center>
-    <img alt="Project Logo" src="https://raw.githubusercontent.com/muKaustav/Taskwrite-Appwrite-Hacktoberfest-2021/main/assets/thumbnail_taskwritepsd.jpg" target="_blank" />
+    <img alt="Project Logo" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/shorurl.jpg" target="_blank" />
 </p>
 <h2 align='center'>A distributed and highly available URL Shortener.</h2><br/>
 
