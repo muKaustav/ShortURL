@@ -49,7 +49,7 @@ Example: docker compose up --build --scale node-server=3
 ## 📺 | Demonstration
 
 <p align = center>
-    ![demonstration](![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif))
+    ![demonstration](https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/gif/trim.gif)
 
 </p>
 
