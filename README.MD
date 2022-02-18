@@ -34,13 +34,18 @@ REACT_APP_MONGODB_URI="<enter your MongoDB URI>"
 REACT_APP_REDIS_PORT=1111 (defaults to 6379)
 REACT_APP_REDIS_HOST='redis-server' (name it as you like, but change the same in the docker-compose.yml file)
 ```
-- Open the project folder and start the container:<br>
+- Open the project folder and start the container with docker comopose:<br>
 
 ```yml
 docker compose up --build
 
 # We can also scale instances of an image for higher scalability or distribution.
 Example: docker compose up --build --scale node-server=3
+```
+- Or use Kubernetes as a container orchestrator:<br>
+
+```yml
+kubectl apply -f k8s/
 ```
 - Enjoy the project! 😉
 
