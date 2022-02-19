@@ -6,8 +6,16 @@
 
 ## 📚 | Introduction
 
+- ShortURL is a distributed and highly available URL Shortening service, built on the MERN stack.
+- It uses Redis as a cache, and MongoDB as a document database.
+- It uses Nginx that acts as a load balancer, and a reverse proxy for the API.
+- It uses Apache ZooKeeper to provide tokens for hash generation, and eliminates race conditions between nodes.
+- The entire application is containerized by Docker, and orchestrated by k8s.
+
+### **Disclaimer**
+
 - This is a demo application of a URL Shortener following the guidelines of efficient System Design.
-- This is a project demonstrating the entire development process and is meant to be run in a local environment. 
+- This is a project demonstrating the entire development process and is meant to be run in a local environment.
 
 <br/>
 
@@ -19,6 +27,7 @@
 ```sh
 git clone https://github.com/muKaustav/ShortURL.git
 ```
+
 - Create a .env file with the following variables:
 
 ```js
@@ -26,6 +35,7 @@ REACT_APP_MONGODB_URI="<enter your MongoDB URI>"
 REACT_APP_REDIS_PORT=1111 (defaults to 6379)
 REACT_APP_REDIS_HOST='redis-server' (name it as you like, but change the same in the docker-compose.yml file)
 ```
+
 - Open the project folder and start the container with docker compose:<br>
 
 ```yml
@@ -34,11 +44,13 @@ docker compose up --build
 # We can also scale instances of an image for higher scalability or distribution.
 Example: docker compose up --build --scale node-server=3
 ```
+
 - Or use Kubernetes as a container orchestrator:<br>
 
 ```yml
 kubectl apply -f k8s/
 ```
+
 - Enjoy the project! 😉
 
 <br/>
@@ -48,7 +60,7 @@ kubectl apply -f k8s/
 ```yml
 GET:
     /url/:identifier : Get the shortened URL from DB
-    /del : Delete the Zookeeper token  
+    /del : Delete the Zookeeper token
 POST:
     /url [body : {"OriginalUrl" : "url"}] : Shorten the URL and store in DB
 
@@ -77,10 +89,18 @@ Access the API using the following URLs:
 
 <br/>
 
-## ⌛ | Areas to Improve
+## ⌛ | Architectural Discussion
 
-- A seperate database for storing user info can be implemented for analytics that adds to the business value of the application. (I didn't implement this as I am not sure if it is necessary for the context of this project)
-- The application can be made more robust by adding more checks to the validation of the URLs.
+- The **availability** of the application can be improved by using multiple Zookeeper instances and a distributed cache, thus removing single points of failures.
+- The latency and throughput of the service can be improved by using a distributed cache, thus reducing the number of requests to the database.
+- Adding load balancers in between the following improves the performance of the application, and reduces the load on any particular instance:
+  - client and server
+  - server and DB
+  - server and cache
+- **CAP Theorem**:
+  - In case of a network partition, we will opt for an **eventually consistent approach** since a URL Shortener should have low latency and high throughput at all times. <br/>
+  - Redirection of the user to the original URL should always have low latency as it directly impacts the business aspect of the application.
+  - If we opt for a **consistent approach**, we will have to wait for the data to be replicated across the cluster, which decreases the availability and latency, thus impacting the user experience.
 
 <br/>
 
