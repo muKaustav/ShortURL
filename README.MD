@@ -12,7 +12,7 @@
 - It uses Apache ZooKeeper to provide tokens for hash generation, and eliminates race conditions between nodes.
 - The entire application is containerized by Docker, and orchestrated by k8s.
 
-### **Disclaimer**
+### _**Disclaimer**_
 
 - This is a demo application of a URL Shortener following the guidelines of efficient System Design.
 - This is a project demonstrating the entire development process and is meant to be run in a local environment.
