@@ -91,7 +91,7 @@ Access the API using the following URLs:
 
 ## ⌛ | Architectural Discussion
 
-- The _**availability**_ of the application can be improved by using multiple Zookeeper instances and a distributed cache, thus removing single points of failures.
+- The _**availability**_ of the application can be improved by using multiple Zookeeper instances, replicas of the DB, and a distributed cache, thus removing single points of failures.
 - The latency and throughput of the service can be improved by using a distributed cache, thus reducing the number of requests to the database.
 - Adding load balancers in between the following improves the performance of the application, and reduces the load on any particular instance:
   - client and server
