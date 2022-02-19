@@ -97,9 +97,9 @@ Access the API using the following URLs:
   - server and DB
   - server and cache
 - _**CAP Theorem**_:
-  - In case of a network partition, we will opt for an _**eventually consistent approach**_ since a URL Shortener should have low latency and high throughput at all times. <br/>
+  - We opt for an _**eventually consistent approach**_, as in case of a network partition, a URL Shortener should have low latency and high throughput at all times. <br/>
   - Redirection of the user to the original URL should always have low latency as it directly impacts the business aspect of the application.
-  - If we opt for a _**strongly consistent approach**_, we will have to wait for the data to be replicated across the cluster, which decreases the availability and latency of the application, thus impacting the user experience.
+  - We don't opt for a _**strongly consistent approach**_, as we would have to wait for the data to be replicated across the cluster, which decreases the availability and latency of the application, thus impacting the user experience.
 
 <br/>
 
