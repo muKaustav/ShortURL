@@ -7,8 +7,8 @@
 ## 📚 | Introduction
 
 - ShortURL is a distributed and highly available URL Shortening service, built on the MERN stack.
-- It uses Redis as a cache, and MongoDB as a document database.
-- It uses Nginx that acts as a load balancer, and a reverse proxy for the API.
+- It uses Redis as a cache, and MongoDB as a NoSQL database.
+- It uses Nginx that acts as a load balancer, and a reverse proxy for the backend server.
 - It uses Apache ZooKeeper to provide tokens for hash generation, and eliminates race conditions between nodes.
 - The entire application is containerized by Docker, and orchestrated by k8s.
 
