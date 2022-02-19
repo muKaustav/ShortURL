@@ -83,7 +83,7 @@ Access the API using the following URLs:
 ## 📘 | System Design Schematic
 
 <p align = center>
-    <img alt="getURL" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/getURL.png" target="_blank" />
+    <img alt="getURL" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/getURLs.png" target="_blank" />
     <img alt="redirect" src="https://raw.githubusercontent.com/muKaustav/ShortURL/master/client/src/assets/images/redirect.png" target="_blank" />
 </p>
 
