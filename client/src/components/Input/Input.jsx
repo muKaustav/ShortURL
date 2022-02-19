@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import UrlBox from './UrlBox'
 import apis from '../../api/api'
+// import { bloomFilterBool } from '../../bloomFilter/bloomFilter'
 import './Input.scss'
 
 function Input() {
