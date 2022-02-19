@@ -91,8 +91,7 @@ Access the API using the following URLs:
 
 ## ⌛ | Architectural Discussion
 
-- The _**availability**_ of the application can be improved by using multiple Zookeeper instances, replicas of the DB, and a distributed cache, thus removing single points of failures.
-- The latency and throughput of the service can be improved by using a distributed cache, thus reducing the number of requests to the database.
+- The _**availability**_ of the application can be improved by using multiple Zookeeper instances, replicas of the DB, and a distributed cache, thus increasing the fault tolerance of the architecture.
 - Adding load balancers in between the following improves the performance of the application, and reduces the load on any particular instance:
   - client and server
   - server and DB
@@ -100,7 +99,7 @@ Access the API using the following URLs:
 - _**CAP Theorem**_:
   - In case of a network partition, we will opt for an _**eventually consistent approach**_ since a URL Shortener should have low latency and high throughput at all times. <br/>
   - Redirection of the user to the original URL should always have low latency as it directly impacts the business aspect of the application.
-  - If we opt for a _**consistent approach**_, we will have to wait for the data to be replicated across the cluster, which decreases the availability and latency, thus impacting the user experience.
+  - If we opt for a _**strongly consistent approach**_, we will have to wait for the data to be replicated across the cluster, which decreases the availability and latency of the application, thus impacting the user experience.
 
 <br/>
 
