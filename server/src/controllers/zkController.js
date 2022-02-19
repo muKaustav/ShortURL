@@ -33,7 +33,7 @@ let urlPost = async (req, res) => {
                         OriginalUrl: req.body.OriginalUrl,
                         Visits: 0,
                         CreatedAt: new Date(),
-                        ExpiresAt: new Date(new Date().getTime() + (1000 * 24 * 60 * 60 * 1000))
+                        ExpiresAt: new Date(new Date().getTime() + (365 * 24 * 60 * 60 * 1000))
                     }, (err, url) => {
                         if (err) {
                             console.log(err)
