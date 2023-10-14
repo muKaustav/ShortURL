@@ -44,13 +44,6 @@ docker compose up --build
 # We can also scale instances of an image for higher scalability or distribution.
 Example: docker compose up --build --scale node-server=3
 ```
-
-- Or use Kubernetes as a container orchestrator:<br>
-
-```yml
-kubectl apply -f k8s/
-```
-
 - Enjoy the project! 😉
 
 <br/>
