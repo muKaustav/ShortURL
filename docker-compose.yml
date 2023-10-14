@@ -12,6 +12,7 @@ services:
     expose:
       - '8081'
     restart: always
+
   client-server:
     build:
       context: ./client
@@ -22,16 +23,21 @@ services:
     ports:
       - '3000:3000'
     restart: always
+
   redis-server:
     image: redis
     ports:
       - '6379:6379'
     restart: always
+
   zookeeper-server:
     image: zookeeper
+    ports:
+      - '2181:2181'
     restart: always
+
   nginx:
-    image: nginx:latest
+    image: nginx
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:

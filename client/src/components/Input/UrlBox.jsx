@@ -5,7 +5,7 @@ function UrlBox(props) {
 	return (
 		<div className={props.class}>
 			<a href={props.link} className="url" target="_blank" rel="noreferrer">
-				shorturl.com/{props.result}
+				http://localhost:4000/url/{props.result}
 			</a>
 		</div>
 	)
